@@ -3,6 +3,7 @@ package com.inobitec.project.controller;
 import com.inobitec.project.data.dto.NodeDto;
 import com.inobitec.project.data.mapper.NodeMapper;
 import com.inobitec.project.service.NodeService;
+import org.mapstruct.factory.Mappers;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,21 +16,19 @@ import java.util.List;
 public class NodeController {
 
     private final NodeService nodeService;
-    private final NodeMapper nodeMapper;
+    private final NodeMapper mapper = Mappers.getMapper(NodeMapper.class);
 
-    public NodeController(NodeService nodeService,
-                          NodeMapper nodeMapper) {
+    public NodeController(NodeService nodeService) {
         this.nodeService = nodeService;
-        this.nodeMapper = nodeMapper;
     }
 
     @GetMapping(path = "")
     public List<NodeDto> getNodes() {
-        return nodeMapper.nodeToNodeDto(nodeService.getAllNodes());
+        return mapper.nodeToNodeDto(nodeService.getAllNodes());
     }
 
     @GetMapping(path = "/{id}")
     public NodeDto getNode(@PathVariable Long id) {
-        return nodeMapper.nodeToNodeDto(nodeService.getNode(id));
+        return mapper.nodeToNodeDto(nodeService.getNode(id));
     }
 }

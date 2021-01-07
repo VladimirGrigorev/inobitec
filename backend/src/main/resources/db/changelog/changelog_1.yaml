@@ -28,3 +28,10 @@ databaseChangeLog:
                   type: TEXT
                   constraints:
                     nullable: true
+              - addForeignKeyConstraint:
+                  constraintName: fk_node_parent
+                  baseTableName: node
+                  baseColumnNames: parent_id
+                  referencedTableName: node
+                  referencedColumnNames: id
+                  validate: true

@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import javax.persistence.*;
+import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Data
@@ -14,8 +16,15 @@ public class Node {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private @NonNull Long id;
-    private Long parent_id;
+    private Long id;
     private @NonNull String name;
     private String text;
+    private Date date;
+
+    @ManyToOne()
+    @JoinColumn(name = "parentId")
+    private Node parent;
+
+    @OneToMany(mappedBy = "parent")
+    private Set<Node> children;
 }

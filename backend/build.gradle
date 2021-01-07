@@ -24,6 +24,7 @@ dependencies {
 
 	compileOnly 'org.projectlombok:lombok:1.18.4'
 	annotationProcessor 'org.projectlombok:lombok:1.18.4'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.1.Final'
 }
 
 test {

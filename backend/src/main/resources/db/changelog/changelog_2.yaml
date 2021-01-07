@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: vgrigorev
+      changes:
+        - addColumn:
+            tableName: node
+            columns:
+              - column:
+                  name: date
+                  type: DATETIME
+                  constraints:
+                    nullable: true
