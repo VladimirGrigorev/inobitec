@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: 102
+      author: vgrigorev
+      changes:
+        - loadData:
+            columns:
+              - column:
+                  header: name
+                  name: name
+                  type: STRING
+              - column:
+                  header: password
+                  name: password
+                  type: STRING
+            commentLineStartsWith: '#'
+            encoding: UTF-8
+            file: file/users.csv
+            quotchar: '"'
+            separator: ','
+            relativeToChangelogFile: true
+            tableName: user

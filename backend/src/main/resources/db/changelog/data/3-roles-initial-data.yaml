@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: 103
+      author: vgrigorev
+      changes:
+        - loadData:
+            columns:
+              - column:
+                  header: id
+                  name: id
+                  type: NUMERIC
+              - column:
+                  header: name
+                  name: name
+                  type: STRING
+            commentLineStartsWith: '#'
+            encoding: UTF-8
+            file: file/roles.csv
+            quotchar: '"'
+            separator: ','
+            relativeToChangelogFile: true
+            tableName: role
