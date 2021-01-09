@@ -4,6 +4,7 @@ import com.inobitec.project.data.dto.security.RegisterUserDto;
 import com.inobitec.project.data.entity.User;
 import com.inobitec.project.data.repository.RoleRepository;
 import com.inobitec.project.data.repository.UserRepository;
+import com.inobitec.project.exeption.NotFoundException;
 import com.inobitec.project.exeption.WrongDataException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -46,5 +47,11 @@ public class UserService {
             }
         }
         return null;
+    }
+
+    public User findByLogin(String login) {
+        if(userRepository.findByName(login) == null)
+            throw new NotFoundException();
+        return userRepository.findByName(login);
     }
 }

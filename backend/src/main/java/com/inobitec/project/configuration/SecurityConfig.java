@@ -7,6 +7,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static org.springframework.http.HttpMethod.*;
+import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @EnableWebSecurity
@@ -27,9 +29,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/user/*").hasRole("USER")
-                .antMatchers("/admin/*").hasRole("ADMIN")
-                .antMatchers("/security/*").anonymous()
+                .antMatchers(GET,"/api/v1/store-branches/findoptimal").hasRole("USER")
+                .antMatchers(GET, "/api/v1/store-branches").permitAll()
+                .antMatchers(GET, "/api/v1/store-branches/*").permitAll()
+                .antMatchers(POST,"/api/v1/store-branches").hasRole("ADMIN")
+                .antMatchers(DELETE,"/api/v1/store-branches/*").hasRole("ADMIN")
+                .antMatchers(PUT,"/api/v1/store-branches/*").hasRole("ADMIN")
+                .antMatchers(GET, "/api/v1/spare-parts").permitAll()
+                .antMatchers(GET, "/api/v1/spare-parts/positive/*").permitAll()
+                .antMatchers(GET,"/api/v1/spare-parts/all").hasRole("ADMIN")
+                .antMatchers(POST,"/api/v1/spare-parts/*").hasRole("ADMIN")
+                .antMatchers(DELETE,"/api/v1/spare-parts/*").hasRole("ADMIN")
+                .antMatchers(PUT,"/api/v1/spare-parts/*/*").hasRole("ADMIN")
+                .antMatchers(POST,"/api/v1/orders/buy").hasRole("USER")
+                .antMatchers(POST,"/api/v1/me").hasAnyRole("USER", "ADMIN")
+                .antMatchers(POST,"/api/v1/security/register/admin").hasRole("ADMIN")
+                .antMatchers("/api/v1/security/*").anonymous()
+                .antMatchers("/api/v1/nodes").permitAll()
+
                 .and().addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
 }
