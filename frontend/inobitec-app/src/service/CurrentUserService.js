@@ -11,6 +11,7 @@ class CurrentUserService {
     }
 
     setCurrentUser(user) {
+        console.log(JSON.stringify(user))
         localStorage.setItem('currentUser', JSON.stringify(user));
     }
 

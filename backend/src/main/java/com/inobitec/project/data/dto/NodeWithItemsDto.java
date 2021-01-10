@@ -16,6 +16,7 @@ public class NodeWithItemsDto {
     private Long parentId;
     private String label;
     private List<NodeDto> items = new ArrayList<>();
+    private String text;
 
     public void addItem(NodeDto dto){
         items.add(dto);

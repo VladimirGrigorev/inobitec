@@ -44,7 +44,7 @@ class RegisterComponent extends Component {
             <div>
                 {!this.state.isAuthenticated ? (<div className="container">
                         <div className="form-group">
-                            <label htmlFor="title">Login</label>
+                            <label htmlFor="title">Логин</label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -57,7 +57,7 @@ class RegisterComponent extends Component {
                         </div>
 
                         <div className="form-group">
-                            <label htmlFor="password">Password</label>
+                            <label htmlFor="password">Пароль</label>
                             <input
                                 type="text"
                                 className="form-control"

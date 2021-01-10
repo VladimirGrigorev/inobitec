@@ -20,7 +20,6 @@ public class Node {
     private Long id;
     private @NonNull String name;
     private String text;
-    private Date date;
 
     @ManyToOne()
     @JoinColumn(name = "parentId")

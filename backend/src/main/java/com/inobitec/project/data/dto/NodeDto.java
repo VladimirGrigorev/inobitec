@@ -15,4 +15,5 @@ public class NodeDto {
     private Long id;
     private Long parentId;
     private String label;
+    private String text;
 }

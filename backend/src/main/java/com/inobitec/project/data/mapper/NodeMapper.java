@@ -23,4 +23,9 @@ public interface NodeMapper {
             @Mapping(target = "label", source = "node.name")
     })
     NodeWithItemsDto nodeToNodeWithItemsDto(Node node);
+
+    @Mappings({
+            @Mapping(target = "name", source = "dto.label")
+    })
+    Node nodeDtoToNode(NodeDto dto);
 }

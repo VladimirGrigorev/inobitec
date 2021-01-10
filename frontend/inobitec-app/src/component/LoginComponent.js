@@ -5,7 +5,7 @@ import CurrentUserService from "../service/CurrentUserService";
 class LoginComponent extends Component {
 
     constructor(props) {
-        super(props)
+        super(props);
         this.onSubmit = this.onSubmit.bind(this);
         this.onChangeLogin = this.onChangeLogin.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
@@ -39,9 +39,11 @@ class LoginComponent extends Component {
             CurrentUserService.setToken(res.data.token);
             CurrentUserService.setSession();
             this.state.isAuthenticated = true;
-            this.props.history.push("/");
+            this.props.history.push("/nodes");
+        }).then(res => {
             window.location.reload();
-        });
+            console.log(CurrentUserService.getCurrentUser());
+        })
     }
 
     render() {
@@ -49,7 +51,7 @@ class LoginComponent extends Component {
             <div>
                 {!this.state.isAuthenticated ? (<div className="container">
                         <div className="form-group">
-                            <label htmlFor="title">Login</label>
+                            <label htmlFor="title">Логин</label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -62,7 +64,7 @@ class LoginComponent extends Component {
                         </div>
 
                         <div className="form-group">
-                            <label htmlFor="password">Password</label>
+                            <label htmlFor="password">Пароль</label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -80,7 +82,7 @@ class LoginComponent extends Component {
                     </div>
                 ) : (
                     <div className="container">
-                        <p>Вы уже вошли!</p>
+                        <p>Вы успешно вошли!</p>
                     </div>
                 )}
             </div>

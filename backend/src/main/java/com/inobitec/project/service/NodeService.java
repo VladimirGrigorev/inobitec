@@ -2,6 +2,7 @@ package com.inobitec.project.service;
 
 import com.inobitec.project.data.entity.Node;
 import com.inobitec.project.data.repository.NodeRepository;
+import com.inobitec.project.exeption.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -35,10 +36,16 @@ public class NodeService {
     }
 
     public Node getNode(Long id) {
-        return nodeRepository.findById(id).orElseThrow();
+        return nodeRepository.findById(id).orElseThrow(NotFoundException::new);
     }
 
-    public Node createOrUpdateNode(Node node) {
+    public Node createOrUpdateNode(Node node, Long parentId) {
+        if(parentId <= 0) {
+            node.setParent(null);
+        }
+        else{
+            node.setParent(nodeRepository.findById(parentId).orElse(null));
+        }
         return nodeRepository.save(node);
     }
 }

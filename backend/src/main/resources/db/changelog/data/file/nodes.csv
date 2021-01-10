@@ -1,12 +1,12 @@
-id,name,text,parent_id
-2,Политика,NULL,NULL
-3,Экономика,NULL,NULL
-4,Наука,NULL,NULL
-5,Культура,NULL,NULL
-6,России,NULL,2
-7,США,NULL,2
-8,Австрия,NULL,2
-9,Мировая,NULL,3
-10,Отечественная,NULL,3
-11,Иностранная,NULL,3
-12,Новость об политике США,Описание,7
+name,text,parent_id
+Политика,NULL,NULL
+Экономика,NULL,NULL
+Наука,NULL,NULL
+Культура,NULL,NULL
+России,NULL,1
+США,NULL,1
+Австрия,NULL,1
+Мировая,NULL,2
+Отечественная,NULL,2
+Иностранная,NULL,2
+Новость об политике США,Описание,6

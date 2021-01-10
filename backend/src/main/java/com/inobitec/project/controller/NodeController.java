@@ -56,8 +56,16 @@ public class NodeController {
         return result;
     }
 
-//    @GetMapping(path = "/{id}")
-//    public NodeDto getNode(@PathVariable Long id) {
-//        return mapper.nodeToNodeDto(nodeService.getNode(id));
-//    }
+    @GetMapping(path = "/selected/{id}")
+    public NodeDto getNode(@PathVariable Long id) {
+        return mapper.nodeToNodeDto(nodeService.getNode(id));
+    }
+
+    @PostMapping(path = "")
+    public NodeDto saveNode(
+            @RequestBody NodeDto dto
+    ) {
+        return mapper.nodeToNodeDto(nodeService.createOrUpdateNode(
+                mapper.nodeDtoToNode(dto), dto.getParentId()));
+    }
 }

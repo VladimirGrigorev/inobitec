@@ -1,10 +1,12 @@
 import { Switch, Route, Link } from "react-router-dom";
 import './App.css';
 import React, { Component } from "react";
-import NodeComponent from "./component/NodeComponent";
+import NodeListComponent from "./component/NodeListComponent";
 import RegisterComponent from "./component/RegisterComponent";
 import LoginComponent from "./component/LoginComponent";
 import CurrentUserService from "./service/CurrentUserService";
+import NodeComponent from "./component/NodeComponent";
+import AdminNodeListComponent from "./component/AdminNodeListComponent";
 
 class App extends Component {
 
@@ -23,8 +25,10 @@ class App extends Component {
   }
 
   isAdmin() {
-    if (CurrentUserService.isAuthenticated() && CurrentUserService.getCurrentUser())
+    if (CurrentUserService.isAuthenticated() && CurrentUserService.getCurrentUser()) {
+      console.log(CurrentUserService.getCurrentUser().data)
       this.setState({isAdmin: !!CurrentUserService.getCurrentUser().data.roles.find(role => role.name === "ROLE_ADMIN")});
+    }
     else
       this.setState({isAdmin: false});
   }
@@ -49,6 +53,7 @@ class App extends Component {
     this.isAuthenticated();
     this.isUser();
     this.isAdmin();
+    console.log(CurrentUserService.getCurrentUser());
   }
 
   render() {
@@ -64,11 +69,12 @@ class App extends Component {
                   Главная
                 </Link>
               </li>
+              {this.state.isAdmin && (
               <li className="nav-item">
-                <Link to={"/add"} className="nav-link">
-                  Add
+                <Link to={"/admin/nodes"} className="nav-link">
+                  Управление узлами
                 </Link>
-              </li>
+              </li>)}
               {!this.state.isAuthenticated && (
                   <li className="nav-item">
                     <Link to={"/login"} className="nav-link">
@@ -92,8 +98,8 @@ class App extends Component {
 
           <div className="container mt-3">
             <Switch>
-              <Route exact path={["/", "/nodes"]} component={NodeComponent}/>
-              <Route exact path="/add" component={NodeComponent}/>
+              <Route exact path={["/", "/nodes"]} component={NodeListComponent}/>
+              <Route exact path="/admin/nodes" component={AdminNodeListComponent}/>
               <Route path="/nodes/:id" component={NodeComponent}/>
               <Route exact path="/register" component={RegisterComponent}/>
               <Route exact path="/login" component={LoginComponent}/>

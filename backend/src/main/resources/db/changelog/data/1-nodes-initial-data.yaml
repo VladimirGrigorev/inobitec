@@ -6,10 +6,6 @@ databaseChangeLog:
         - loadData:
             columns:
               - column:
-                  header: id
-                  name: id
-                  type: NUMERIC
-              - column:
                   header: name
                   name: name
                   type: STRING
