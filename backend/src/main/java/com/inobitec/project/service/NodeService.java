@@ -3,6 +3,7 @@ package com.inobitec.project.service;
 import com.inobitec.project.data.entity.Node;
 import com.inobitec.project.data.repository.NodeRepository;
 import com.inobitec.project.exeption.NotFoundException;
+import com.inobitec.project.exeption.WrongDataException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -40,6 +41,9 @@ public class NodeService {
     }
 
     public Node createOrUpdateNode(Node node, Long parentId) {
+        if(node.getId() != null && node.getId().equals(parentId)){
+            throw new WrongDataException();
+        }
         if(parentId <= 0) {
             node.setParent(null);
         }
@@ -47,5 +51,12 @@ public class NodeService {
             node.setParent(nodeRepository.findById(parentId).orElse(null));
         }
         return nodeRepository.save(node);
+    }
+
+    public void deleteNode(Long id) {
+        nodeRepository.findById(id).orElseThrow(NotFoundException::new).getChildren().forEach(children -> {
+            deleteNode(children.getId());
+        });
+        nodeRepository.deleteById(id);
     }
 }

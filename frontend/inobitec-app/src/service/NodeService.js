@@ -19,6 +19,10 @@ class NodeService {
         return http.post(`/v1/nodes`, data, this.buildOpts());
     }
 
+    deleteNode(id){
+        return http.delete(`/v1/nodes/${id}`, this.buildOpts());
+    }
+
     buildOpts() {
         return {
             headers: ({

@@ -28,14 +28,8 @@ public class NodeController {
     public List<NodeWithItemsDto> getNodes(@PathVariable Long parentId) {
         var result = new ArrayList<NodeWithItemsDto>();
         nodeService.getAllNodesWithParentId(parentId).forEach(node -> {
-            var dto = mapper.nodeToNodeWithItemsDto(node);
-
             if (node.getChildren().size() != 0) {
-                node.getChildren().forEach(children -> {
-                    if (children.getChildren().size() == 0)
-                        dto.addItem(mapper.nodeToNodeDto(children));
-                });
-                result.add(dto);
+                result.add(nodeToDtoWithItems(node));
             }
         });
         return result;
@@ -45,15 +39,19 @@ public class NodeController {
     public List<NodeWithItemsDto> getRootNodes() {
         var result = new ArrayList<NodeWithItemsDto>();
         nodeService.getAllRootNodes().forEach(node -> {
-            var dto = mapper.nodeToNodeWithItemsDto(node);
-
-            node.getChildren().forEach(children -> {
-                if (children.getChildren().size() == 0)
-                    dto.addItem(mapper.nodeToNodeDto(children));
-            });
-            result.add(dto);
+            result.add(nodeToDtoWithItems(node));
         });
         return result;
+    }
+
+    private NodeWithItemsDto nodeToDtoWithItems(Node node) {
+        var dto = mapper.nodeToNodeWithItemsDto(node);
+
+        node.getChildren().forEach(children -> {
+            if (children.getChildren().size() == 0)
+                dto.addItem(mapper.nodeToNodeDto(children));
+        });
+        return dto;
     }
 
     @GetMapping(path = "/selected/{id}")
@@ -62,10 +60,13 @@ public class NodeController {
     }
 
     @PostMapping(path = "")
-    public NodeDto saveNode(
-            @RequestBody NodeDto dto
-    ) {
+    public NodeDto saveNode(@RequestBody NodeDto dto) {
         return mapper.nodeToNodeDto(nodeService.createOrUpdateNode(
                 mapper.nodeDtoToNode(dto), dto.getParentId()));
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public void deleteNode(@PathVariable Long id) {
+        nodeService.deleteNode(id);
     }
 }

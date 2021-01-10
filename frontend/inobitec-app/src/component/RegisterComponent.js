@@ -42,7 +42,7 @@ class RegisterComponent extends Component {
     render() {
         return (
             <div>
-                {!this.state.isAuthenticated ? (<div className="container">
+                {!this.state.isAuthenticated ? (<div className="login-container">
                         <div className="form-group">
                             <label htmlFor="title">Логин</label>
                             <input

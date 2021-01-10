@@ -66,31 +66,31 @@ class App extends Component {
             <div className="navbar-nav mr-auto">
               <li className="nav-item">
                 <Link to={"/nodes"} className="nav-link">
-                  Главная
+                  <a>Главная</a>
                 </Link>
               </li>
               {this.state.isAdmin && (
               <li className="nav-item">
                 <Link to={"/admin/nodes"} className="nav-link">
-                  Управление узлами
+                  <a>Управление узлами</a>
                 </Link>
               </li>)}
               {!this.state.isAuthenticated && (
                   <li className="nav-item">
                     <Link to={"/login"} className="nav-link">
-                      Войти
+                      <a>Войти</a>
                     </Link>
                   </li>)}
               {!this.state.isAuthenticated && (
                   <li className="nav-item">
                     <Link to={"/register"} className="nav-link">
-                      Зарегистрироваться
+                      <a>Зарегистрироваться</a>
                     </Link>
                   </li>)}
               {this.state.isAuthenticated ? (
                   <li className="nav-item">
                     <Link onClick={this.logout} className="nav-link">
-                      Выйти
+                      <a>Выйти</a>
                     </Link>
                   </li>) : null}
             </div>

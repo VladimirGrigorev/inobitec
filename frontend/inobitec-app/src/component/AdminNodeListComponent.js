@@ -12,6 +12,7 @@ class AdminNodeListComponent extends Component {
         this.onChangeText = this.onChangeText.bind(this);
         this.onChangeParentId = this.onChangeParentId.bind(this);
         this.saveNode = this.saveNode.bind(this);
+        this.deleteNode = this.deleteNode.bind(this);
 
         this.state = {
             nodes: [],
@@ -106,9 +107,15 @@ class AdminNodeListComponent extends Component {
         window.location.reload();
     }
 
+    deleteNode() {
+        NodeService.deleteNode(this.state.id);
+        window.location.reload();
+    }
+
     render() {
         return (
             <div>
+                <div className="admin-node-container">
                 <div className="form-group">
                     <label htmlFor="id">Id: {this.state.id}</label><br/>
                     <label htmlFor="label">Имя</label>
@@ -147,17 +154,19 @@ class AdminNodeListComponent extends Component {
                         onChange={this.onChangeParentId}
                         name="parentId"
                     />
+                    <p>Для указания начального узла (без родителя) укажите в "Id родителя" любое не положительное целое число(например -1)</p>
                 </div>
 
                 <button onClick={this.saveNode} className="btn btn-success">
                     Сохранить
                 </button>
                 <button onClick={this.clear} className="btn btn-warning">
-                    Очистить
+                    Очистить поля
                 </button>
                 <button onClick={this.deleteNode} className="btn btn-danger">
                     Удалить
                 </button>
+                </div>
             <Tree nodes={this.state.nodes} onSelect={this.onSelectNode} theme={'light'} grow/>
             </div>
         )

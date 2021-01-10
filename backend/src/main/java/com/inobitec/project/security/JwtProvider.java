@@ -49,7 +49,6 @@ public class JwtProvider {
             jwtParser.parse(token);
             return true;
         } catch (Exception e) {
-            System.err.println("Invalid token");
             return false;
         }
     }

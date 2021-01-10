@@ -7,6 +7,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static org.springframework.http.HttpMethod.*;
+import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @EnableWebSecurity
@@ -27,6 +29,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(STATELESS)
                 .and()
                 .authorizeRequests()
+                .antMatchers(POST,"/api/v1/nodes").hasRole("ADMIN")
+                .antMatchers(DELETE,"/api/v1/nodes/*").hasRole("ADMIN")
+                .antMatchers(GET,"/api/v1/nodes/*").permitAll()
+                .antMatchers(GET,"/api/v1/nodes/selected/*").permitAll()
+                .antMatchers(GET,"/api/v1/me").hasAnyRole("USER", "ADMIN")
+                .antMatchers(POST,"/api/v1/security/register/admin").hasRole("ADMIN")
                 .antMatchers("/api/v1/security/*").anonymous()
                 .antMatchers("/api/v1/nodes").permitAll()
 
