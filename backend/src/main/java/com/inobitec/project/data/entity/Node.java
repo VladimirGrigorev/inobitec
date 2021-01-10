@@ -6,6 +6,7 @@ import lombok.NonNull;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -26,5 +27,5 @@ public class Node {
     private Node parent;
 
     @OneToMany(mappedBy = "parent")
-    private Set<Node> children;
+    private List<Node> children;
 }

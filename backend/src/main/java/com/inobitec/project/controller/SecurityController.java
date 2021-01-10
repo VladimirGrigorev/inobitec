@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.http.HttpStatus.CREATED;
 
-@CrossOrigin(origins = { "http://localhost:3000"})
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api/v1/security")
 public class SecurityController {

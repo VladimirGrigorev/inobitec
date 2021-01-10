@@ -16,9 +16,21 @@ public class NodeService {
         this.nodeRepository = nodeRepository;
     }
 
-    public List<Node> getAllNodes() {
+    public List<Node> getAllNodesWithParentId(Long parentId) {
         var result = new ArrayList<Node>();
-        nodeRepository.findAll().forEach(result::add);
+        nodeRepository.findAll().forEach(node -> {
+            if(node.getParent() != null && node.getParent().getId().equals(parentId))
+                result.add(node);
+        });
+        return result;
+    }
+
+    public List<Node> getAllRootNodes() {
+        var result = new ArrayList<Node>();
+        nodeRepository.findAll().forEach(node -> {
+            if(node.getParent() == null)
+                result.add(node);
+        });
         return result;
     }
 
