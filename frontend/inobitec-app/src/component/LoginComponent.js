@@ -39,8 +39,8 @@ class LoginComponent extends Component {
             CurrentUserService.setToken(res.data.token);
             CurrentUserService.setSession();
             this.state.isAuthenticated = true;
-            this.props.history.push("/nodes");
         }).then(res => {
+            this.props.history.push("/");
             window.location.reload();
             console.log(CurrentUserService.getCurrentUser());
         })
