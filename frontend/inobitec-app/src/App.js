@@ -7,6 +7,7 @@ import LoginComponent from "./component/LoginComponent";
 import CurrentUserService from "./service/CurrentUserService";
 import NodeComponent from "./component/NodeComponent";
 import AdminNodeListComponent from "./component/AdminNodeListComponent";
+import { withRouter } from 'react-router-dom';
 
 class App extends Component {
 
@@ -27,21 +28,21 @@ class App extends Component {
   isAdmin() {
     if (CurrentUserService.isAuthenticated() && CurrentUserService.getCurrentUser()) {
       console.log(CurrentUserService.getCurrentUser().data)
-      this.setState({isAdmin: !!CurrentUserService.getCurrentUser().data.roles.find(role => role.name === "ROLE_ADMIN")});
+      return this.setState({isAdmin: !!CurrentUserService.getCurrentUser().data.roles.find(role => role.name === "ROLE_ADMIN")});
     }
     else
-      this.setState({isAdmin: false});
+      return this.setState({isAdmin: false});
   }
 
   isUser() {
     if (CurrentUserService.isAuthenticated() && CurrentUserService.getCurrentUser())
-      this.setState({isUser: !!CurrentUserService.getCurrentUser().data.roles.find(role => role.name === "ROLE_USER")});
+      return this.setState({isUser: !!CurrentUserService.getCurrentUser().data.roles.find(role => role.name === "ROLE_USER")});
     else
-      this.setState({isUser: false});
+      return this.setState({isUser: false});
   }
 
   isAuthenticated() {
-    this.setState({isAuthenticated: CurrentUserService.isAuthenticated()});
+    return this.setState({isAuthenticated: CurrentUserService.isAuthenticated()});
   }
 
   logout() {
@@ -53,7 +54,6 @@ class App extends Component {
     this.isAuthenticated();
     this.isUser();
     this.isAdmin();
-    console.log(CurrentUserService.getCurrentUser());
   }
 
   render() {
@@ -110,4 +110,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);

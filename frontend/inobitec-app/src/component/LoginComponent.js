@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import SecurityService from '../service/SecurityService';
 import CurrentUserService from "../service/CurrentUserService";
+import { withRouter } from 'react-router-dom';
 
 class LoginComponent extends Component {
 
@@ -37,13 +38,18 @@ class LoginComponent extends Component {
         SecurityService.loginUser(this.state.login, this.state.password).then(res => {
             console.log(res.data.token);
             CurrentUserService.setToken(res.data.token);
-            CurrentUserService.setSession();
             this.state.isAuthenticated = true;
         }).then(res => {
-            this.props.history.push("/");
-            window.location.reload();
-            console.log(CurrentUserService.getCurrentUser());
-        })
+            CurrentUserService.setSession().then(res => {
+                this.toStartPage();
+            });
+        });
+    }
+
+    toStartPage() {
+        this.props.history.push("/");
+        window.location.reload();
+        console.log(CurrentUserService.getCurrentUser());
     }
 
     render() {
@@ -90,4 +96,4 @@ class LoginComponent extends Component {
     }
 }
 
-export default LoginComponent
+export default withRouter(LoginComponent)

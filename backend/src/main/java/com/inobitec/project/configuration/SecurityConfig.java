@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(DELETE,"/api/v1/nodes/*").hasRole("ADMIN")
                 .antMatchers(GET,"/api/v1/nodes/*").permitAll()
                 .antMatchers(GET,"/api/v1/nodes/selected/*").permitAll()
-                .antMatchers(GET,"/api/v1/me").hasAnyRole("USER", "ADMIN")
+                .antMatchers(GET,"/api/v1/me").authenticated()
                 .antMatchers(POST,"/api/v1/security/register/admin").hasRole("ADMIN")
                 .antMatchers("/api/v1/security/*").anonymous()
                 .antMatchers("/api/v1/nodes").permitAll()

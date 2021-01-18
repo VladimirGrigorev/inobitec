@@ -19,7 +19,7 @@ class AdminNodeListComponent extends Component {
             id: null,
             label: "",
             text: "",
-            parentId: null
+            parentId: -1
         }
     }
 

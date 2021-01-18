@@ -29,7 +29,7 @@ class CurrentUserService {
     }
 
     setSession() {
-        http.get('/v1/me', this.buildOpts())
+        return http.get('/v1/me', this.buildOpts())
             .then(user => {
                     this.setCurrentUser(user);
                 },
